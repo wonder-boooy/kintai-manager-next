@@ -1,21 +1,6 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import styles from "./page.module.css";
 
-function StartButton() {
-  return <button>開始</button>;
-}
-
-function BreakButton() {
-  return <button>休憩</button>;
-}
-
-function FinishButton() {
-  return <button>終了</button>;
-}
-
-function CurrentTime() {
+export function CurrentTime() {
   const [time, setTime] = useState<null | string>(null);
 
   useEffect(() => {
@@ -34,17 +19,4 @@ function CurrentTime() {
   if (!time) return <div>Loading...</div>;
 
   return <time>{time}</time>;
-}
-
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <h1>
-        <CurrentTime />
-        <StartButton />
-        <BreakButton />
-        <FinishButton />
-      </h1>
-    </main>
-  );
 }
