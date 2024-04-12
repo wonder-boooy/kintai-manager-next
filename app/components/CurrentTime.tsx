@@ -1,13 +1,31 @@
 import { useEffect, useState } from "react";
 
+const localeOptions = {
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+} as const;
+
+const timeStyle: React.CSSProperties = {
+  fontSize: "4rem",
+  color: "gray",
+  background: "#c1c1c1",
+  height: "25rem",
+  width: "25rem",
+  borderRadius: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
 export function CurrentTime() {
   const [time, setTime] = useState<null | string>(null);
 
   useEffect(() => {
-    setTime(new Date().toLocaleTimeString());
+    setTime(new Date().toLocaleTimeString([], localeOptions));
 
     const timerId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
+      setTime(new Date().toLocaleTimeString([], localeOptions));
     }, 100);
 
     // コンポーネントのアンマウント時にタイマーをクリア
@@ -18,5 +36,5 @@ export function CurrentTime() {
   // ref: https://nextjs.org/docs/messages/react-hydration-error
   if (!time) return <div>Loading...</div>;
 
-  return <time>{time}</time>;
+  return <div style={timeStyle}>{time}</div>;
 }
