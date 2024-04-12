@@ -12,10 +12,14 @@ export default function Home() {
       <h1>
         <CurrentTime />
       </h1>
-      <div style={{ display: "flex", columnGap: 20 }}>
-        <StartButton />
+      <div style={{ position: "relative" }}>
+        <div style={{ position: "absolute", left: -200, top: -70 }}>
+          <StartButton />
+        </div>
         <BreakButton />
-        <FinishButton />
+        <div style={{ position: "absolute", right: -200, top: -70 }}>
+          <FinishButton />
+        </div>
       </div>
     </main>
   );

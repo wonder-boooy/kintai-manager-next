@@ -1,7 +1,7 @@
 const buttonStyle: React.CSSProperties = {
   fontSize: "1.5rem",
-  height: "7rem",
-  width: "7rem",
+  height: "8rem",
+  width: "8rem",
   borderRadius: "50%",
   color: "#808080",
   background: "#fff",
