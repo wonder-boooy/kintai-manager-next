@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const buttonStyle: React.CSSProperties = {
   fontSize: "1.5rem",
   height: "8rem",
@@ -10,5 +12,13 @@ const buttonStyle: React.CSSProperties = {
 };
 
 export function Button({ children }: { children: React.ReactNode | string }) {
-  return <button style={buttonStyle}>{children}</button>;
+  return (
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      style={buttonStyle}
+    >
+      {children}
+    </motion.button>
+  );
 }
