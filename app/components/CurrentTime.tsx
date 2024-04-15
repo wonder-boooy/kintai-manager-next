@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import localFont from "next/font/local";
+
+const digital = localFont({ src: "../fonts/Let_s_go_Digital_Regular.ttf",  });
 
 const localeOptions = {
   hour: "2-digit",
@@ -7,7 +10,7 @@ const localeOptions = {
 } as const;
 
 const timeStyle: React.CSSProperties = {
-  fontSize: "4rem",
+  fontSize: "5rem",
   color: "gray",
   background: "#c1c1c1",
   height: "25rem",
@@ -36,5 +39,9 @@ export function CurrentTime() {
   // ref: https://nextjs.org/docs/messages/react-hydration-error
   if (!time) return <div>Loading...</div>;
 
-  return <div style={timeStyle}>{time}</div>;
+  return (
+    <div className={digital.className} style={timeStyle}>
+      {time}
+    </div>
+  );
 }
