@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import localFont from "next/font/local";
 
-const digital = localFont({ src: "../fonts/Let_s_go_Digital_Regular.ttf",  });
+const digital = localFont({ src: "../fonts/Let_s_go_Digital_Regular.ttf" });
 
 const localeOptions = {
   hour: "2-digit",
@@ -11,7 +11,6 @@ const localeOptions = {
 
 const timeStyle: React.CSSProperties = {
   fontSize: "5rem",
-  color: "gray",
   background: "#c1c1c1",
   height: "25rem",
   width: "25rem",
@@ -37,7 +36,12 @@ export function CurrentTime() {
 
   // 時刻がnullの場合はローディング状態を表示。これによりHydration errorを回避している。
   // ref: https://nextjs.org/docs/messages/react-hydration-error
-  if (!time) return <div>Loading...</div>;
+  if (!time)
+    return (
+      <div className={digital.className} style={timeStyle}>
+        Loading...
+      </div>
+    );
 
   return (
     <div className={digital.className} style={timeStyle}>
