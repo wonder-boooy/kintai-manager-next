@@ -86,14 +86,13 @@ body {
 }
 
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
   color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
-  background: #4bc031;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   transition: background 0.5s;
   transition: color 0.2s;
 }
@@ -114,6 +113,51 @@ body.overwork-lv4 {
 body.overwork-lv5 {
   background: #ff0000;
 }
+
+.container {
+  text-align: center;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.clock {
+  color: #9f9f9f;
+  font-size: 72px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: color 0.3s ease;
+}
+.clock.active {
+  color: #fff;
+  font-size: 72px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: color 0.3s ease;
+}
+.buttons button {
+  font-size: 24px;
+  padding: 15px 30px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #667eea;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.buttons button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+.buttons button i {
+  margin-right: 10px;
+}
+
 
 @media (prefers-color-scheme: dark) {
   html {

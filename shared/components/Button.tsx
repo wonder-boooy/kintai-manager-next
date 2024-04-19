@@ -10,5 +10,5 @@ const buttonStyle: React.CSSProperties = {
 };
 
 export function Button({ children }: { children: React.ReactNode | string }) {
-  return <button style={buttonStyle}>{children}</button>;
+  return <button>{children}</button>;
 }
