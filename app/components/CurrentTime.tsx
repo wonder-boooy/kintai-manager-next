@@ -7,7 +7,7 @@ const localeOptions = {
 } as const;
 
 const loadingStyle: React.CSSProperties = {
-  color: "#9f9f9f",
+  color: "rgba(255, 255, 255, 0.2)",
   fontSize: 72,
   fontWeight: "bold",
   marginBottom: 30,
@@ -37,7 +37,7 @@ export function CurrentTime() {
     return () => clearInterval(timerId);
   }, []);
 
-  if (!time) return <div style={loadingStyle}>Loading...</div>;
+  if (!time) return <div style={loadingStyle}>00:00:00</div>;
 
   return <div style={style}>{time}</div>;
 }
