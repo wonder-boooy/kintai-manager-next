@@ -1,14 +1,31 @@
-const buttonStyle: React.CSSProperties = {
-  fontSize: "1.5rem",
-  height: "4rem",
-  width: "8rem",
-  borderRadius: "8px",
-  background: "#ccc",
-  color: "#333",
+import { useState } from "react";
+
+const style: React.CSSProperties = {
+  fontSize: 24,
+  padding: "15px 30px",
   border: "none",
-  cursor: "pointer",
+  borderRadius: 5,
+  backgroundColor: "#fff",
+  color: "#667eea",
+  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+  transition: "all 0.3s ease",
+};
+
+const hoverStyle: React.CSSProperties = {
+  ...style,
+  transform: "translateY(-5px)",
+  boxShadow: "0 5px 10px rgba(0, 0, 0, 0.3)",
 };
 
 export function Button({ children }: { children: React.ReactNode | string }) {
-  return <button>{children}</button>;
+  const [isHover, setIsHover] = useState<boolean>(false);
+  return (
+    <button
+      style={isHover ? hoverStyle : style}
+      onMouseOver={() => setIsHover(true)}
+      onMouseOut={() => setIsHover(false)}
+    >
+      {children}
+    </button>
+  );
 }

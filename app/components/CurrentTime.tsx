@@ -6,15 +6,22 @@ const localeOptions = {
   second: "2-digit",
 } as const;
 
-const timeStyle: React.CSSProperties = {
-  fontSize: "5rem",
-  background: "#c1c1c1",
-  height: "25rem",
-  width: "25rem",
-  borderRadius: "50%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+const loadingStyle: React.CSSProperties = {
+  color: "#9f9f9f",
+  fontSize: 72,
+  fontWeight: "bold",
+  marginBottom: 30,
+  textShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+  transition: "color 0.3s ease",
+};
+
+const style: React.CSSProperties = {
+  color: "#fff",
+  fontSize: 72,
+  fontWeight: "bold",
+  marginBottom: 30,
+  textShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+  transition: "color 0.3s ease",
 };
 
 export function CurrentTime() {
@@ -27,13 +34,10 @@ export function CurrentTime() {
       setTime(new Date().toLocaleTimeString([], localeOptions));
     }, 100);
 
-    // コンポーネントのアンマウント時にタイマーをクリア
     return () => clearInterval(timerId);
   }, []);
 
-  // 時刻がnullの場合はローディング状態を表示。これによりHydration errorを回避している。
-  // ref: https://nextjs.org/docs/messages/react-hydration-error
-  if (!time) return <div className="clock">Loading...</div>;
+  if (!time) return <div style={loadingStyle}>Loading...</div>;
 
-  return <div className="clock active">{time}</div>;
+  return <div style={style}>{time}</div>;
 }
