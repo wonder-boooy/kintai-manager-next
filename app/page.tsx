@@ -9,15 +9,13 @@ import Buttons from "./components/Buttons";
 
 export default function Home() {
   return (
-    <main>
-      <Container>
-        <CurrentTime />
-        <Buttons>
-          <StartButton />
-          <BreakButton />
-          <FinishButton />
-        </Buttons>
-      </Container>
-    </main>
+    <Container>
+      <CurrentTime />
+      <Buttons>
+        <StartButton />
+        <BreakButton />
+        <FinishButton />
+      </Buttons>
+    </Container>
   );
 }
