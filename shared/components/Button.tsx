@@ -3,7 +3,7 @@ import { useState } from "react";
 const style: React.CSSProperties = {
   fontSize: 24,
   textWrap: "nowrap",
-  padding: "15px 30px",
+  padding: "15px 20px",
   border: "none",
   borderRadius: 5,
   backgroundColor: "#fff",
