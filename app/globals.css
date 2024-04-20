@@ -94,24 +94,25 @@ body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(135deg, #667eea, #764ba2);
   transition: background 0.5s;
-  transition: color 0.2s;
 }
 
+body.working {
+  background: linear-gradient(135deg, #65f66c, #03b532);
+}
 body.overwork-lv1 {
-  color: #000;
-  background: #ff9999;
+  background: linear-gradient(135deg, #ffc4d5, #f43c7c);
 }
 body.overwork-lv2 {
-  background: #ff7777;
+  background: linear-gradient(135deg, #ff98b6, #cb1756);
 }
 body.overwork-lv3 {
-  background: #ff5555;
+  background: linear-gradient(135deg, #ff6892, #960404);
 }
 body.overwork-lv4 {
-  background: #ff3333;
+  background: linear-gradient(135deg, #ff5757, #78002a);
 }
 body.overwork-lv5 {
-  background: #ff0000;
+  background: linear-gradient(135deg, #ff1742, #6f000f);
 }
 
 .buttons button i {
