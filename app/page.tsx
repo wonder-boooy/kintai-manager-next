@@ -7,7 +7,7 @@ import { BreakButton } from "./components/BreakButton";
 import { FinishButton } from "./components/FinishButton";
 import Buttons from "./components/Buttons";
 
-export default function Home() {
+function Home() {
   return (
     <Container>
       <CurrentTime />
@@ -19,3 +19,5 @@ export default function Home() {
     </Container>
   );
 }
+
+export default Home;

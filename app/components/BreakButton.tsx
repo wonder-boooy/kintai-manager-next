@@ -7,7 +7,7 @@ export function BreakButton() {
     <Button>
       <Flex>
         <FaPause size={30} />
-        開始
+        休憩
       </Flex>
     </Button>
   );

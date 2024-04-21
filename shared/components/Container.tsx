@@ -1,6 +1,7 @@
 const style: React.CSSProperties = {
   textAlign: "center",
-  padding: 40,
+  maxWidth: "90vw",
+  padding: 30,
   borderRadius: 10,
   boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
   backgroundColor: "rgba(255, 255, 255, 0.1)",
