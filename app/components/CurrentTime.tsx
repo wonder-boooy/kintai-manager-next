@@ -8,7 +8,7 @@ const localeOptions = {
 
 const loadingStyle: React.CSSProperties = {
   color: "rgba(255, 255, 255, 0.2)",
-  fontSize: "calc(90% + 10vmin)",
+  fontSize: 72,
   fontWeight: "bold",
   marginBottom: 30,
   transition: "color 0.3s ease",
@@ -16,7 +16,7 @@ const loadingStyle: React.CSSProperties = {
 
 const style: React.CSSProperties = {
   color: "#fff",
-  fontSize: "calc(90% + 10vmin)",
+  fontSize: 72,
   fontWeight: "bold",
   marginBottom: 30,
   transition: "color 0.3s ease",
