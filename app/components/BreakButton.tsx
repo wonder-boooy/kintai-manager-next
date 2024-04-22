@@ -17,8 +17,6 @@ export function BreakButton() {
     });
   };
 
-  console.log("Break stillWorking", stillWorking);
-
   return (
     <Button onClick={takeBreak} disabled={!stillWorking}>
       <Flex>
