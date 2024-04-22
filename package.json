@@ -20,7 +20,8 @@
     "next-with-linaria": "^0.7.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.1.0"
+    "react-icons": "^5.1.0",
+    "react-responsive": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
