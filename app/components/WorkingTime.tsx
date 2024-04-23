@@ -23,7 +23,7 @@ export function WorkingTime() {
 
     const timerId = setInterval(() => {
       setTime(new Date());
-    }, 10);
+    }, 1);
 
     return () => clearInterval(timerId);
   }, []);
