@@ -9,9 +9,10 @@ type ButtonProps = {
   children: React.ReactNode | string;
   onClick?: () => void;
   disabled?: boolean;
+  style?: React.CSSProperties;
 };
 
-const style = ({ isHover, disabled }: StyleProps) => ({
+const buildStyle = ({ isHover, disabled }: StyleProps) => ({
   fontSize: 24,
   textWrap: "nowrap" as const,
   padding: "15px 20px",
@@ -27,7 +28,12 @@ const style = ({ isHover, disabled }: StyleProps) => ({
       : "0 0 10px rgba(0, 0, 0, 0.2)",
 });
 
-export function Button({ children, onClick, disabled = true }: ButtonProps) {
+export function Button({
+  children,
+  onClick,
+  disabled = true,
+  style = {},
+}: ButtonProps) {
   const [isHover, setIsHover] = useState<boolean>(false);
   const onMouseOver = () => (!disabled ? () => null : () => setIsHover(true));
   const onMouseOut = () => (!disabled ? () => null : () => setIsHover(false));
@@ -38,7 +44,7 @@ export function Button({ children, onClick, disabled = true }: ButtonProps) {
     <button
       onClick={onClick}
       disabled={disabled}
-      style={style({ isHover, disabled })}
+      style={{ ...buildStyle({ isHover, disabled }), ...style }}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
       onMouseDown={onMouseDown}
