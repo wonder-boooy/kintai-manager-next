@@ -115,10 +115,6 @@ body.overwork-lv5 {
   background: linear-gradient(135deg, #ff1742, #6f000f);
 }
 
-.buttons button i {
-  margin-right: 10px;
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
