@@ -1,4 +1,5 @@
 const style: React.CSSProperties = {
+  position: "relative",
   textAlign: "center",
   maxWidth: "90vw",
   padding: 30,

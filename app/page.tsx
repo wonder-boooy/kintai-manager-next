@@ -11,17 +11,15 @@ import FlexColumn from "@/shared/components/FlexColumn";
 
 function Home() {
   return (
-    <FlexColumn>
-      <Container>
-        <CurrentTime />
-        <Buttons>
-          <StartButton />
-          <BreakButton />
-          <FinishButton />
-        </Buttons>
-      </Container>
+    <Container>
+      <CurrentTime />
+      <Buttons>
+        <StartButton />
+        <BreakButton />
+        <FinishButton />
+      </Buttons>
       <WorkingTime />
-    </FlexColumn>
+    </Container>
   );
 }
 

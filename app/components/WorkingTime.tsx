@@ -2,40 +2,39 @@ import { db } from "@/shared/utils/db";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect, useState } from "react";
 
-const localeOptions = {
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  fractionalSecondDigits: 3,
-} as const;
-
 const style: React.CSSProperties = {
+  position: "absolute",
+  top: 270,
+  right: 0,
+  left: 0,
+  margin: "0 auto",
   color: "#fff",
   fontSize: 24,
   fontWeight: "bold",
-  marginBottom: 30,
   transition: "color 0.3s ease",
 };
 
 export function WorkingTime() {
-  const [time, setTime] = useState<null | string>(null);
+  const [time, setTime] = useState<null | Date>(null);
   const lastWork = useLiveQuery(() => db.works.toArray())?.slice(-1)[0];
 
   useEffect(() => {
-    setTime(new Date().toLocaleTimeString([], localeOptions));
+    setTime(new Date());
 
     const timerId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString([], localeOptions));
+      setTime(new Date());
     }, 10);
 
     return () => clearInterval(timerId);
   }, []);
 
-  const workingTimeNumber =
-    new Date().getTime() - (lastWork?.startedAt.getTime() as number);
-
+  if (!time) return null;
   if (!lastWork) return null;
   if (lastWork.finishedAt) return null;
+
+  const now = time.getTime();
+  const startedAt = lastWork.startedAt.getTime();
+  const workingTimeNumber = now - startedAt;
 
   const hour = Math.floor(workingTimeNumber / 1000 / 60 / 60)
     .toString()
@@ -52,7 +51,8 @@ export function WorkingTime() {
 
   return (
     <div style={style}>
-      {hour}:{minute}:{second}:{millisecond}
+      {hour}:{minute}:{second}
+      <span style={{ color: "#a1a1a1" }}>:{millisecond}</span>
     </div>
   );
 }
