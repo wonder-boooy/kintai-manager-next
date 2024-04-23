@@ -18,9 +18,10 @@ const buildStyle = ({ isHover, disabled }: StyleProps) => ({
   padding: "15px 20px",
   border: "none",
   borderRadius: 5,
-  backgroundColor: disabled ? "rgba(255, 255, 255, 0.2)" : "#fff",
-  color: "#667eea",
   transition: "all 0.2s ease",
+  color: disabled ? "#c1c1c1" : "#717171",
+  cursor: disabled ? "not-allowed" : "pointer",
+  backgroundColor: disabled ? "rgba(255, 255, 255, 0.2)" : "#fff",
   transform: !disabled && isHover ? "translateY(-5px)" : "none",
   boxShadow:
     !disabled && isHover
