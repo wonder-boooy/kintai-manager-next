@@ -92,27 +92,34 @@ body {
   height: 100vh;
   margin: 0;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  /* background: linear-gradient(135deg, #667eea, #764ba2); */
+  background: #4741ff;
   transition: background 0.5s;
 }
 
 body.working {
-  background: linear-gradient(135deg, #65f66c, #03b532);
+  /* background: linear-gradient(135deg, #65f66c, #03b532); */
+  background: #1a8200;
 }
 body.overwork-lv1 {
-  background: linear-gradient(135deg, #ffc4d5, #f43c7c);
+  /* background: linear-gradient(135deg, #ffc4d5, #f43c7c); */
+  background: #9fca00;
 }
 body.overwork-lv2 {
-  background: linear-gradient(135deg, #ff98b6, #cb1756);
+  /* background: linear-gradient(135deg, #ff98b6, #cb1756); */
+  background: #ffc60b;
 }
 body.overwork-lv3 {
-  background: linear-gradient(135deg, #ff6892, #960404);
+  /* background: linear-gradient(135deg, #ff6892, #960404); */
+  background: #ff8000;
 }
 body.overwork-lv4 {
-  background: linear-gradient(135deg, #ff5757, #78002a);
+  /* background: linear-gradient(135deg, #ff5757, #78002a); */
+  background: #ff1e00;
 }
 body.overwork-lv5 {
-  background: linear-gradient(135deg, #ff1742, #6f000f);
+  /* background: linear-gradient(135deg, #ff1742, #6f000f); */
+  background: #300000;
 }
 
 @media (prefers-color-scheme: dark) {
