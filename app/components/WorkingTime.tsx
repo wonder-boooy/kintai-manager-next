@@ -14,40 +14,39 @@ const style: React.CSSProperties = {
   transition: "color 0.3s ease",
 };
 
+const getTimes = (workingMilliSeconds: number) => {
+  const hour = Math.floor(workingMilliSeconds / 1000 / 60 / 60)
+    .toString()
+    .padStart(2, "0");
+  const minute = Math.floor((workingMilliSeconds / 1000 / 60) % 60)
+    .toString()
+    .padStart(2, "0");
+  const second = Math.floor((workingMilliSeconds / 1000) % 60)
+    .toString()
+    .padStart(2, "0");
+  const millisecond = Math.floor(workingMilliSeconds % 1000)
+    .toString()
+    .padStart(3, "0");
+
+  return { hour, minute, second, millisecond };
+};
+
 export function WorkingTime() {
-  const [time, setTime] = useState<null | Date>(null);
-  const lastWork = useLiveQuery(() => db.works.toArray())?.slice(-1)[0];
-
   useEffect(() => {
-    setTime(new Date());
-
-    const timerId = setInterval(() => {
-      setTime(new Date());
-    }, 1);
-
+    const timerId = setInterval(() => setTime(new Date()), 1);
     return () => clearInterval(timerId);
   }, []);
 
-  if (!time) return null;
-  if (!lastWork) return null;
-  if (lastWork.finishedAt) return null;
+  const [time, setTime] = useState<Date>(new Date());
+  const lastWork = useLiveQuery(() => db.works.toArray())?.slice(-1)[0];
+  const stillWorking = lastWork && !lastWork.finishedAt;
+
+  if (!stillWorking) return null;
 
   const now = time.getTime();
   const startedAt = lastWork.startedAt.getTime();
-  const workingTimeNumber = now - startedAt;
-
-  const hour = Math.floor(workingTimeNumber / 1000 / 60 / 60)
-    .toString()
-    .padStart(2, "0");
-  const minute = Math.floor((workingTimeNumber / 1000 / 60) % 60)
-    .toString()
-    .padStart(2, "0");
-  const second = Math.floor((workingTimeNumber / 1000) % 60)
-    .toString()
-    .padStart(2, "0");
-  const millisecond = Math.floor(workingTimeNumber % 1000)
-    .toString()
-    .padStart(3, "0");
+  const workingMilliSeconds = now - startedAt;
+  const { hour, minute, second, millisecond } = getTimes(workingMilliSeconds);
 
   return (
     <div style={style}>
