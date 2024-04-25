@@ -10,6 +10,7 @@ import { WorkingTime } from "./components/WorkingTime";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/shared/utils/db";
 import { useEffect, useState } from "react";
+import { BreakingTime } from "./components/BreakingTime";
 
 // TODO: 背景色が変わるポイントを定義。秒になっているが分に変更する。
 const checkPoints = [2, 4, 6, 8, 10];
@@ -63,6 +64,7 @@ function Home() {
         <FinishButton />
       </Buttons>
       <WorkingTime />
+      <BreakingTime />
     </Container>
   );
 }
