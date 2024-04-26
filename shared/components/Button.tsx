@@ -36,10 +36,10 @@ export function Button({
   style = {},
 }: ButtonProps) {
   const [isHover, setIsHover] = useState<boolean>(false);
-  const onMouseOver = () => (!disabled ? () => null : () => setIsHover(true));
-  const onMouseOut = () => (!disabled ? () => null : () => setIsHover(false));
-  const onMouseDown = () => (!disabled ? () => null : () => setIsHover(false));
-  const onMouseUp = () => (!disabled ? () => null : () => setIsHover(true));
+  const onMouseOver = () => (disabled ? null : setIsHover(true));
+  const onMouseOut = () => setIsHover(false);
+  const onMouseDown = () => (disabled ? null : setIsHover(false));
+  const onMouseUp = () => setIsHover(true);
 
   return (
     <button
