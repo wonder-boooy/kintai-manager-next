@@ -12,6 +12,8 @@ import { db } from "@/shared/utils/db";
 import { useEffect, useState } from "react";
 import { BreakingTime } from "./components/BreakingTime";
 import { AllDeleteButton } from "./components/AllDeleteButton";
+import { ListLink } from "./components/ListLink";
+import { Absolute } from "@/shared/components/Absolute";
 
 // TODO: 背景色が変わるポイントを定義。秒になっているが分に変更する。
 const checkPoints = [2, 4, 6, 8, 10];
@@ -68,6 +70,9 @@ function Home() {
         <WorkingTime />
         <BreakingTime />
       </Container>
+      <Absolute bottom={50}>
+        <ListLink />
+      </Absolute>
       <AllDeleteButton />
     </>
   );
