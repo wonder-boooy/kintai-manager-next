@@ -14,7 +14,7 @@ export function ListLink() {
     <Link href="/lists">
       <Button disabled={false} style={listLinkStyle}>
         <Flex align="center">
-          一覧
+          List
           <FaCircleArrowRight />
         </Flex>
       </Button>
