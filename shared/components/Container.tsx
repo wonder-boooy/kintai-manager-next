@@ -9,7 +9,11 @@ const style: React.CSSProperties = {
   backdropFilter: "blur(10px)",
 };
 
-function Container({ children }: { children: React.ReactNode }) {
+type ContainerProps = {
+  children: React.ReactNode | React.ReactNode[];
+};
+
+function Container({ children }: ContainerProps) {
   return <div style={style}>{children}</div>;
 }
 

@@ -6,13 +6,12 @@ import { StartButton } from "./components/StartButton";
 import { BreakButton } from "./components/BreakButton";
 import { FinishButton } from "./components/FinishButton";
 import Buttons from "./components/Buttons";
-import { WorkingTime } from "./components/WorkingTime";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/shared/utils/db";
 import { useEffect, useState } from "react";
-import { BreakingTime } from "./components/BreakingTime";
 import { Absolute } from "@/shared/components/Absolute";
 import { ListLink } from "@/shared/components/ListLink";
+import { LapTimes } from "@/shared/components/LapTimes";
 
 // TODO: 背景色が変わるポイントを定義。秒になっているが分に変更する。
 const checkPoints = [2, 4, 6, 8, 10];
@@ -66,9 +65,8 @@ function Home() {
           <BreakButton />
           <FinishButton />
         </Buttons>
-        <WorkingTime />
-        <BreakingTime />
       </Container>
+      <LapTimes />
       <Absolute bottom={50}>
         <ListLink />
       </Absolute>
