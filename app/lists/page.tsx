@@ -5,6 +5,7 @@ import FlexColumn from "@/shared/components/FlexColumn";
 import { TopPageLink } from "@/shared/components/TopPageLink";
 import { db } from "@/shared/utils/db";
 import { useLiveQuery } from "dexie-react-hooks";
+import { ClearAllButton } from "@/shared/components/ClearAllButton";
 
 const localeOptions = {
   year: "numeric",
@@ -46,6 +47,7 @@ function List() {
       <Absolute bottom={50}>
         <TopPageLink />
       </Absolute>
+      <ClearAllButton />
     </FlexColumn>
   );
 }

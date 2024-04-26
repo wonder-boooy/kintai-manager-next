@@ -11,7 +11,6 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "@/shared/utils/db";
 import { useEffect, useState } from "react";
 import { BreakingTime } from "./components/BreakingTime";
-import { AllDeleteButton } from "./components/AllDeleteButton";
 import { Absolute } from "@/shared/components/Absolute";
 import { ListLink } from "@/shared/components/ListLink";
 
@@ -73,7 +72,6 @@ function Home() {
       <Absolute bottom={50}>
         <ListLink />
       </Absolute>
-      <AllDeleteButton />
     </>
   );
 }
