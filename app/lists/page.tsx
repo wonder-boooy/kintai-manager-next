@@ -1,6 +1,8 @@
 "use client";
 
+import { Absolute } from "@/shared/components/Absolute";
 import FlexColumn from "@/shared/components/FlexColumn";
+import { TopPageLink } from "@/shared/components/TopPageLink";
 import { db } from "@/shared/utils/db";
 import { useLiveQuery } from "dexie-react-hooks";
 
@@ -41,6 +43,9 @@ function List() {
           ))}
         </ul>
       </FlexColumn>
+      <Absolute bottom={50}>
+        <TopPageLink />
+      </Absolute>
     </FlexColumn>
   );
 }
