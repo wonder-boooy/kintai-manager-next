@@ -36,12 +36,21 @@ export function WorkingTime() {
   const [time, setTime] = useState<Date>(new Date());
   const lastWork = useLiveQuery(() => db.works.toArray())?.slice(-1)[0];
   const stillWorking = lastWork && !lastWork.finishedAt;
+  const breakList = useLiveQuery(
+    () => db.breaks.where({ workId: lastWork?.id || 0 }).toArray(),
+    [lastWork]
+  );
 
   if (!stillWorking) return null;
 
+  const breakingMilliSeconds = breakList?.reduce((acc, cur) => {
+    const startedAt = cur.startedAt.getTime();
+    const finishedAt = cur.finishedAt?.getTime() || time.getTime();
+    return acc + (finishedAt - startedAt);
+  }, 0);
   const now = time.getTime();
   const startedAt = lastWork.startedAt.getTime();
-  const workingMilliSeconds = now - startedAt;
+  const workingMilliSeconds = now - startedAt - (breakingMilliSeconds || 0);
   const { hour, minute, second, millisecond } = getTimes(workingMilliSeconds);
 
   return (
