@@ -1,6 +1,6 @@
-import { db } from "@/shared/utils/db";
-import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect, useState } from "react";
+import { useWork } from "../hooks/useWork";
+import { useBreak } from "../hooks/useBreak";
 
 const style: React.CSSProperties = {
   margin: "0 auto",
@@ -34,12 +34,8 @@ export function BreakingTime() {
   }, []);
 
   const [time, setTime] = useState<Date>(new Date());
-  const lastWork = useLiveQuery(() => db.works.toArray())?.slice(-1)[0];
-  const breakRecordList = useLiveQuery(
-    () => db.breaks.where({ workId: lastWork?.id || 0 }).toArray(),
-    [lastWork]
-  );
-  const stillWorking = lastWork && !lastWork.finishedAt;
+  const { lastWork, stillWorking } = useWork();
+  const { breakRecordList } = useBreak(lastWork);
 
   if (!stillWorking) return null;
   if (breakRecordList?.length === 0) return null;

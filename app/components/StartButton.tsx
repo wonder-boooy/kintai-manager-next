@@ -2,11 +2,10 @@ import { Button } from "@/shared/components/Button";
 import Flex from "@/shared/components/Flex";
 import { FaPlay } from "react-icons/fa6";
 import { db } from "@/shared/utils/db";
-import { useLiveQuery } from "dexie-react-hooks";
+import { useWork } from "@/shared/hooks/useWork";
 
 export function StartButton() {
-  const lastWork = useLiveQuery(() => db.works.toArray())?.slice(-1)[0];
-  const stillWorking = !!lastWork && !lastWork.finishedAt;
+  const { stillWorking } = useWork();
 
   const startWorking = () => {
     db.works.add({

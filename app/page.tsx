@@ -6,24 +6,23 @@ import { StartButton } from "./components/StartButton";
 import { BreakButton } from "./components/BreakButton";
 import { FinishButton } from "./components/FinishButton";
 import Buttons from "./components/Buttons";
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "@/shared/utils/db";
 import { useEffect, useState } from "react";
 import { Absolute } from "@/shared/components/Absolute";
 import { ListLink } from "@/shared/components/ListLink";
 import { LapTimes } from "@/shared/components/LapTimes";
+import { useWork } from "@/shared/hooks/useWork";
 
 // TODO: 背景色が変わるポイントを定義。秒になっているが分に変更する。
 const checkPoints = [2, 4, 6, 8, 10];
 
 function Home() {
   const [time, setTime] = useState(new Date());
-  const lastWork = useLiveQuery(() => db.works.toArray())?.slice(-1)[0];
-  const stillWorking = !!lastWork && !lastWork.finishedAt;
+  const { lastWork, stillWorking } = useWork();
   // TODO: 背景色変化の基準にする稼働時間。単位は分に変更する。
-  const workingSeconds = stillWorking
-    ? (time.getTime() - lastWork.startedAt.getTime()) / 1000
-    : 0;
+  const workingSeconds =
+    lastWork && stillWorking
+      ? (time.getTime() - lastWork.startedAt.getTime()) / 1000
+      : 0;
 
   useEffect(() => {
     const timerId = setInterval(() => setTime(new Date()), 100);

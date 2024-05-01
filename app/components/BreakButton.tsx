@@ -2,7 +2,8 @@ import { Button } from "@/shared/components/Button";
 import Flex from "@/shared/components/Flex";
 import { FaArrowRotateRight, FaPause } from "react-icons/fa6";
 import { db } from "@/shared/utils/db";
-import { useLiveQuery } from "dexie-react-hooks";
+import { useWork } from "@/shared/hooks/useWork";
+import { useBreak } from "@/shared/hooks/useBreak";
 
 function PauseButton() {
   return (
@@ -23,21 +24,14 @@ function RestartButton() {
 }
 
 export function BreakButton() {
-  const lastWork = useLiveQuery(async () => await db.works.toArray())?.slice(
-    -1
-  )[0];
-  const breakRecord = useLiveQuery(
-    () => db.breaks.where({ workId: lastWork?.id || 0 }).toArray(),
-    [lastWork]
-  )?.slice(-1)[0];
-  const stillWorking = !!lastWork && !lastWork.finishedAt;
-  const stillBreaking =
-    stillWorking && !!breakRecord && !breakRecord.finishedAt;
+  const { lastWork, stillWorking } = useWork();
+  const { breakRecord, stillBreaking } = useBreak(lastWork);
 
   const toggleBreak = () => {
     if (!lastWork) return;
+    if (!stillWorking) return;
 
-    if (stillBreaking) {
+    if (breakRecord && stillBreaking) {
       db.breaks.update(breakRecord.id as number, {
         finishedAt: new Date(),
       });
