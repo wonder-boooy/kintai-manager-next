@@ -4,21 +4,26 @@ import { FaArrowRotateRight, FaPause } from "react-icons/fa6";
 import { db } from "@/shared/utils/db";
 import { useWork } from "@/shared/hooks/useWork";
 import { useBreak } from "@/shared/hooks/useBreak";
+import { useResponsive } from "@/shared/hooks/useResponsive";
 
 function PauseButton() {
+  const { isMobile } = useResponsive();
+
   return (
     <Flex>
       <FaPause size={30} />
-      休憩
+      {isMobile || "休憩"}
     </Flex>
   );
 }
 
 function RestartButton() {
+  const { isMobile } = useResponsive();
+
   return (
     <Flex>
       <FaArrowRotateRight size={30} />
-      再開
+      {isMobile || "再開"}
     </Flex>
   );
 }
