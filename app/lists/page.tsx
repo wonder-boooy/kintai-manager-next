@@ -18,7 +18,7 @@ const localeOptions = {
 
 function List() {
   const { allWorkList } = useWork();
-  const { allBreakList } = useBreak(undefined);
+  const { allBreakList } = useBreak();
 
   return (
     <FlexColumn>

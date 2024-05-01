@@ -1,7 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { Works, db } from "../utils/db";
 
-export function useBreak(work: Works | undefined) {
+export function useBreak(work?: Works) {
   const stillWorking = !!work && !work.finishedAt;
 
   const breakRecord = useLiveQuery(
