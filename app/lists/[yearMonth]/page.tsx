@@ -7,24 +7,10 @@ import { getMonthRange } from "@/shared/utils/getMonthRange";
 import { getTimes } from "@/shared/utils/getTimes";
 import { isValidDate } from "@/shared/utils/isValidDate";
 import { useLiveQuery } from "dexie-react-hooks";
+import { Input } from "./components/Input";
+import { CenteredTh } from "./components/CenteredTh";
 
 const regex = /^(19|20)\d{2}(0[1-9]|1[0-2])$/;
-
-type InputProps = {
-  type?: "text" | "number";
-  width?: number;
-  textAlign?: "left" | "center" | "right";
-  value: string;
-};
-
-function Input({
-  type = "text",
-  width = 70,
-  textAlign = "center",
-  value,
-}: InputProps) {
-  return <input type={type} style={{ width, textAlign }} value={value} />;
-}
 
 type MonthRecordParams = {
   params: {
@@ -39,14 +25,14 @@ function MonthRecord({ params }: MonthRecordParams) {
   const end = getLastDayOfMonth(currentMonth);
 
   const isValid = isValidDate(currentMonth);
-  const worksQuery = isValid
-    ? () =>
-        db.works.where("startedAt").between(start, end, true, true).toArray()
-    : () => db.works.where({ id: 0 }).toArray();
-  const breaksQuery = isValid
-    ? () =>
-        db.breaks.where("startedAt").between(start, end, true, true).toArray()
-    : () => db.breaks.where({ id: 0 }).toArray();
+  const worksQuery = () =>
+    isValid
+      ? db.works.where("startedAt").between(start, end, true, true).toArray()
+      : db.works.where({ id: 0 }).toArray();
+  const breaksQuery = () =>
+    isValid
+      ? db.breaks.where("startedAt").between(start, end, true, true).toArray()
+      : db.breaks.where({ id: 0 }).toArray();
 
   const works = useLiveQuery(worksQuery);
   const breakRecordList = useLiveQuery(breaksQuery);
@@ -62,10 +48,10 @@ function MonthRecord({ params }: MonthRecordParams) {
       <table style={{ borderSpacing: "30px 10px" }}>
         <thead>
           <tr>
-            <th style={{ textAlign: "center" }}>日付</th>
-            <th style={{ textAlign: "center" }}>勤務時間</th>
-            <th style={{ textAlign: "center" }}>休憩時間</th>
-            <th style={{ textAlign: "center" }}>実働時間</th>
+            <CenteredTh>日付</CenteredTh>
+            <CenteredTh>勤務時間</CenteredTh>
+            <CenteredTh>休憩時間</CenteredTh>
+            <CenteredTh>実働時間</CenteredTh>
           </tr>
         </thead>
         <tbody>
@@ -107,23 +93,23 @@ function MonthRecord({ params }: MonthRecordParams) {
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {workMilliSeconds === 0 ? (
-                    <Input value="--:--" />
+                    <Input defaultValue="--:--" />
                   ) : (
-                    <Input value={`${workHour}:${workMinute}`} />
+                    <Input defaultValue={`${workHour}:${workMinute}`} />
                   )}
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {breakMilliSeconds === 0 ? (
-                    <Input value="--:--" />
+                    <Input defaultValue="--:--" />
                   ) : (
-                    <Input value={`${breakHour}:${breakMinute}`} />
+                    <Input defaultValue={`${breakHour}:${breakMinute}`} />
                   )}
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {workMilliSeconds === 0 ? (
-                    <Input value="--:--" />
+                    <Input defaultValue="--:--" />
                   ) : (
-                    <Input value={`${realHour}:${realMinute}`} />
+                    <Input defaultValue={`${realHour}:${realMinute}`} />
                   )}
                 </td>
               </tr>
