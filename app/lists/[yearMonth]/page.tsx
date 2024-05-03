@@ -9,6 +9,9 @@ import { isValidDate } from "@/shared/utils/isValidDate";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Input } from "./components/Input";
 import { CenteredTh } from "./components/CenteredTh";
+import { FaArrowRotateRight, FaTrashCan } from "react-icons/fa6";
+import { FaSave } from "react-icons/fa";
+import Flex from "@/shared/components/Flex";
 
 const regex = /^(19|20)\d{2}(0[1-9]|1[0-2])$/;
 
@@ -52,6 +55,8 @@ function MonthRecord({ params }: MonthRecordParams) {
             <CenteredTh>勤務時間</CenteredTh>
             <CenteredTh>休憩時間</CenteredTh>
             <CenteredTh>実働時間</CenteredTh>
+            <CenteredTh>備考</CenteredTh>
+            <CenteredTh />
           </tr>
         </thead>
         <tbody>
@@ -111,6 +116,16 @@ function MonthRecord({ params }: MonthRecordParams) {
                   ) : (
                     <Input defaultValue={`${realHour}:${realMinute}`} />
                   )}
+                </td>
+                <td>
+                  <textarea rows={1} />
+                </td>
+                <td>
+                  <Flex gap={10}>
+                    <FaArrowRotateRight size={20} />
+                    <FaSave size={20} />
+                    <FaTrashCan size={20} />
+                  </Flex>
                 </td>
               </tr>
             );
