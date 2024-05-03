@@ -40,10 +40,12 @@ function MonthRecord({ params }: MonthRecordParams) {
 
   const isValid = isValidDate(currentMonth);
   const worksQuery = isValid
-    ? () => db.works.where("startedAt").between(start, end, true, true).toArray()
+    ? () =>
+        db.works.where("startedAt").between(start, end, true, true).toArray()
     : () => db.works.where({ id: 0 }).toArray();
   const breaksQuery = isValid
-    ? () => db.breaks.where("startedAt").between(start, end, true, true).toArray()
+    ? () =>
+        db.breaks.where("startedAt").between(start, end, true, true).toArray()
     : () => db.breaks.where({ id: 0 }).toArray();
 
   const works = useLiveQuery(worksQuery);
@@ -52,7 +54,6 @@ function MonthRecord({ params }: MonthRecordParams) {
   if (!regex.test(yearMonth)) return <div>Invalid date</div>;
   if (!isValidDate(currentMonth)) return <div>Invalid date</div>;
   if (works === undefined) return <div>Loading...</div>;
-  if (works.length === 0) return <div>No data</div>;
 
   const monthRange = getMonthRange(currentMonth);
 
@@ -105,13 +106,25 @@ function MonthRecord({ params }: MonthRecordParams) {
                   {`（${date.toLocaleDateString([], { weekday: "short" })}）`}
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  <Input value={`${workHour}:${workMinute}`} />
+                  {workMilliSeconds === 0 ? (
+                    <Input value="--:--" />
+                  ) : (
+                    <Input value={`${workHour}:${workMinute}`} />
+                  )}
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  <Input value={`${breakHour}:${breakMinute}`} />
+                  {breakMilliSeconds === 0 ? (
+                    <Input value="--:--" />
+                  ) : (
+                    <Input value={`${breakHour}:${breakMinute}`} />
+                  )}
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  <Input value={`${realHour}:${realMinute}`} />
+                  {workMilliSeconds === 0 ? (
+                    <Input value="--:--" />
+                  ) : (
+                    <Input value={`${realHour}:${realMinute}`} />
+                  )}
                 </td>
               </tr>
             );
