@@ -10,6 +10,22 @@ import { useLiveQuery } from "dexie-react-hooks";
 
 const regex = /^(19|20)\d{2}(0[1-9]|1[0-2])$/;
 
+type InputProps = {
+  type?: "text" | "number";
+  width?: number;
+  textAlign?: "left" | "center" | "right";
+  value: string;
+};
+
+function Input({
+  type = "text",
+  width = 70,
+  textAlign = "center",
+  value,
+}: InputProps) {
+  return <input type={type} style={{ width, textAlign }} value={value} />;
+}
+
 type MonthRecordParams = {
   params: {
     yearMonth: string;
@@ -22,15 +38,16 @@ function MonthRecord({ params }: MonthRecordParams) {
   const start = getFirstDayOfMonth(currentMonth);
   const end = getLastDayOfMonth(currentMonth);
 
-  const worksQuery = isValidDate(currentMonth)
-    ? db.works.where("startedAt").between(start, end, true, true)
-    : db.works.where("id").equals(0);
-  const breaksQuery = isValidDate(currentMonth)
-    ? db.breaks.where("startedAt").between(start, end, true, true)
-    : db.breaks.where("id").equals(0);
+  const isValid = isValidDate(currentMonth);
+  const worksQuery = isValid
+    ? () => db.works.where("startedAt").between(start, end, true, true).toArray()
+    : () => db.works.where({ id: 0 }).toArray();
+  const breaksQuery = isValid
+    ? () => db.breaks.where("startedAt").between(start, end, true, true).toArray()
+    : () => db.breaks.where({ id: 0 }).toArray();
 
-  const works = useLiveQuery(() => worksQuery.toArray());
-  const breakRecordList = useLiveQuery(() => breaksQuery.toArray());
+  const works = useLiveQuery(worksQuery);
+  const breakRecordList = useLiveQuery(breaksQuery);
 
   if (!regex.test(yearMonth)) return <div>Invalid date</div>;
   if (!isValidDate(currentMonth)) return <div>Invalid date</div>;
@@ -41,13 +58,13 @@ function MonthRecord({ params }: MonthRecordParams) {
 
   return (
     <div>
-      <table>
+      <table style={{ borderSpacing: "30px 10px" }}>
         <thead>
           <tr>
-            <th style={{ minWidth: 100, textAlign: "center" }}>日付</th>
-            <th style={{ minWidth: 100, textAlign: "center" }}>勤務時間</th>
-            <th style={{ minWidth: 100, textAlign: "center" }}>休憩時間</th>
-            <th style={{ minWidth: 100, textAlign: "center" }}>実働時間</th>
+            <th style={{ textAlign: "center" }}>日付</th>
+            <th style={{ textAlign: "center" }}>勤務時間</th>
+            <th style={{ textAlign: "center" }}>休憩時間</th>
+            <th style={{ textAlign: "center" }}>実働時間</th>
           </tr>
         </thead>
         <tbody>
@@ -88,13 +105,13 @@ function MonthRecord({ params }: MonthRecordParams) {
                   {`（${date.toLocaleDateString([], { weekday: "short" })}）`}
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  <input type="text" value={`${workHour}:${workMinute}`} />
+                  <Input value={`${workHour}:${workMinute}`} />
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  <input type="text" value={`${breakHour}:${breakMinute}`} />
+                  <Input value={`${breakHour}:${breakMinute}`} />
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  <input type="text" value={`${realHour}:${realMinute}`} />
+                  <Input value={`${realHour}:${realMinute}`} />
                 </td>
               </tr>
             );
