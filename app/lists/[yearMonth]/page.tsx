@@ -76,13 +76,14 @@ function MonthRecord({ params }: MonthRecordParams) {
             const breaksOfMonth = breakRecordList?.filter(
               (brk) => brk.startedAt.getDate() === date.getDate()
             );
-            const breakMilliSeconds = breaksOfMonth?.reduce(
-              (acc, cur) =>
-                acc +
-                (cur.finishedAt?.getTime() || new Date().getTime()) -
-                cur.startedAt.getTime(),
-              0
-            );
+            const breakMilliSeconds =
+              breaksOfMonth?.reduce(
+                (acc, cur) =>
+                  acc +
+                  (cur.finishedAt?.getTime() || new Date().getTime()) -
+                  cur.startedAt.getTime(),
+                0
+              ) || 0;
             const { hour: breakHour, minute: breakMinute } = getTimes(
               breakMilliSeconds || 0
             );
