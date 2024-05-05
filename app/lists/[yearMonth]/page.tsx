@@ -12,6 +12,8 @@ import { CenteredTh } from "./components/CenteredTh";
 import { FaArrowRotateRight, FaTrashCan } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
 import Flex from "@/shared/components/Flex";
+import Container from "@/shared/components/Container";
+import { Margin } from "@/shared/components/Margin";
 
 const regex = /^(19|20)\d{2}(0[1-9]|1[0-2])$/;
 
@@ -50,93 +52,105 @@ function MonthRecord({ params }: MonthRecordParams) {
   const monthRange = getMonthRange(currentMonth);
 
   return (
-    <div>
-      <table style={{ borderSpacing: "30px 10px" }}>
-        <thead>
-          <tr>
-            <CenteredTh>日付</CenteredTh>
-            <CenteredTh>勤務時間</CenteredTh>
-            <CenteredTh>休憩時間</CenteredTh>
-            <CenteredTh>実働時間</CenteredTh>
-            <CenteredTh>備考</CenteredTh>
-            <CenteredTh />
-          </tr>
-        </thead>
-        <tbody>
-          {monthRange.map((date) => {
-            const worksOfMonth = works.filter(
-              (work) => work.startedAt.getDate() === date.getDate()
-            );
-            const workMilliSeconds = worksOfMonth.reduce(
-              (acc, cur) =>
-                acc +
-                (cur.finishedAt?.getTime() || new Date().getTime()) -
-                cur.startedAt.getTime(),
-              0
-            );
-            const breaksOfMonth = breakRecordList.filter(
-              (brk) => brk.startedAt.getDate() === date.getDate()
-            );
-            const breakMilliSeconds = breaksOfMonth.reduce(
-              (acc, cur) =>
-                acc +
-                (cur.finishedAt?.getTime() || new Date().getTime()) -
-                cur.startedAt.getTime(),
-              0
-            );
-            const realWorkMilliSeconds = workMilliSeconds - breakMilliSeconds;
+    <Margin margin={50}>
+      <Container>
+        <Margin marginBottom={25}>
+          <section style={{ textAlign: "center", fontSize: 30 }}>
+            <h1>
+              {currentMonth.toLocaleDateString([], {
+                year: "numeric",
+                month: "2-digit",
+              })}
+            </h1>
+          </section>
+        </Margin>
+        <table style={{ borderSpacing: "30px 10px" }}>
+          <thead>
+            <tr>
+              <CenteredTh>日付</CenteredTh>
+              <CenteredTh>勤務時間</CenteredTh>
+              <CenteredTh>休憩時間</CenteredTh>
+              <CenteredTh>実働時間</CenteredTh>
+              <CenteredTh>備考</CenteredTh>
+              <CenteredTh />
+            </tr>
+          </thead>
+          <tbody>
+            {monthRange.map((date) => {
+              const worksOfMonth = works.filter(
+                (work) => work.startedAt.getDate() === date.getDate()
+              );
+              const workMilliSeconds = worksOfMonth.reduce(
+                (acc, cur) =>
+                  acc +
+                  (cur.finishedAt?.getTime() || new Date().getTime()) -
+                  cur.startedAt.getTime(),
+                0
+              );
+              const breaksOfMonth = breakRecordList.filter(
+                (brk) => brk.startedAt.getDate() === date.getDate()
+              );
+              const breakMilliSeconds = breaksOfMonth.reduce(
+                (acc, cur) =>
+                  acc +
+                  (cur.finishedAt?.getTime() || new Date().getTime()) -
+                  cur.startedAt.getTime(),
+                0
+              );
+              const realWorkMilliSeconds = workMilliSeconds - breakMilliSeconds;
 
-            const { hour: workHour, minute: workMinute } =
-              getTimes(workMilliSeconds);
-            const { hour: breakHour, minute: breakMinute } =
-              getTimes(breakMilliSeconds);
-            const { hour: realHour, minute: realMinute } =
-              getTimes(realWorkMilliSeconds);
+              const { hour: workHour, minute: workMinute } =
+                getTimes(workMilliSeconds);
+              const { hour: breakHour, minute: breakMinute } =
+                getTimes(breakMilliSeconds);
+              const { hour: realHour, minute: realMinute } =
+                getTimes(realWorkMilliSeconds);
 
-            return (
-              <tr key={date.getTime()}>
-                <td style={{ textAlign: "center" }}>
-                  {date.toLocaleDateString([], { day: "numeric" })}
-                  {`（${date.toLocaleDateString([], { weekday: "short" })}）`}
-                </td>
-                <td style={{ textAlign: "center" }}>
-                  {workMilliSeconds === 0 ? (
-                    <Input />
-                  ) : (
-                    <Input defaultValue={`${workHour}:${workMinute}`} />
-                  )}
-                </td>
-                <td style={{ textAlign: "center" }}>
-                  {breakMilliSeconds === 0 ? (
-                    <Input />
-                  ) : (
-                    <Input defaultValue={`${breakHour}:${breakMinute}`} />
-                  )}
-                </td>
-                <td style={{ textAlign: "center" }}>
-                  {workMilliSeconds === 0 ? (
-                    <Input />
-                  ) : (
-                    <Input defaultValue={`${realHour}:${realMinute}`} />
-                  )}
-                </td>
-                <td>
-                  <textarea rows={1} />
-                </td>
-                <td>
-                  <Flex gap={10}>
-                    <FaArrowRotateRight size={20} />
-                    <FaSave size={20} />
-                    <FaTrashCan size={20} />
-                  </Flex>
-                </td>
-              </tr>
-            );
-          })}
-          <tr></tr>
-        </tbody>
-      </table>
-    </div>
+              return (
+                <tr key={date.getTime()}>
+                  <td style={{ textAlign: "center" }}>
+                    {date.toLocaleDateString([], { day: "numeric" })}
+                    {`（${date.toLocaleDateString([], { weekday: "short" })}）`}
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    {workMilliSeconds === 0 ? (
+                      <Input />
+                    ) : (
+                      <Input defaultValue={`${workHour}:${workMinute}`} />
+                    )}
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    {breakMilliSeconds === 0 ? (
+                      <Input />
+                    ) : (
+                      <Input defaultValue={`${breakHour}:${breakMinute}`} />
+                    )}
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    {workMilliSeconds === 0 ? (
+                      <Input />
+                    ) : (
+                      <Input defaultValue={`${realHour}:${realMinute}`} />
+                    )}
+                  </td>
+                  <td>
+                    <textarea rows={1} />
+                  </td>
+                  <td>
+                    <Flex gap={10}>
+                      <FaArrowRotateRight size={20} />
+                      <FaSave size={20} />
+                      <FaTrashCan size={20} />
+                    </Flex>
+                  </td>
+                </tr>
+              );
+            })}
+            <tr></tr>
+          </tbody>
+        </table>
+      </Container>
+    </Margin>
   );
 }
 
