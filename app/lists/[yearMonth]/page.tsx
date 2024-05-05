@@ -101,21 +101,21 @@ function MonthRecord({ params }: MonthRecordParams) {
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {workMilliSeconds === 0 ? (
-                    <Input defaultValue="--:--" />
+                    <Input />
                   ) : (
                     <Input defaultValue={`${workHour}:${workMinute}`} />
                   )}
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {breakMilliSeconds === 0 ? (
-                    <Input defaultValue="--:--" />
+                    <Input />
                   ) : (
                     <Input defaultValue={`${breakHour}:${breakMinute}`} />
                   )}
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {workMilliSeconds === 0 ? (
-                    <Input defaultValue="--:--" />
+                    <Input />
                   ) : (
                     <Input defaultValue={`${realHour}:${realMinute}`} />
                   )}
