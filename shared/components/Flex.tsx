@@ -1,5 +1,12 @@
 type StyleProps = {
-  align?: "center" | "start" | "end" | "flex-start" | "flex-end";
+  align?:
+    | "center"
+    | "start"
+    | "end"
+    | "flex-start"
+    | "flex-end"
+    | "baseline"
+    | "stretch";
   justify?:
     | "center"
     | "start"
@@ -8,7 +15,8 @@ type StyleProps = {
     | "flex-end"
     | "space-between"
     | "space-around"
-    | "space-evenly";
+    | "space-evenly"
+    | "stretch";
   gap?: number;
 };
 

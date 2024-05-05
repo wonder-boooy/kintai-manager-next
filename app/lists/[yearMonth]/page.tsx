@@ -9,19 +9,83 @@ import { isValidDate } from "@/shared/utils/isValidDate";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Input } from "./components/Input";
 import { CenteredTh } from "./components/CenteredTh";
-import { FaArrowRotateRight, FaTrashCan } from "react-icons/fa6";
+import {
+  FaAngleLeft,
+  FaAngleRight,
+  FaArrowRotateRight,
+  FaTrashCan,
+} from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
 import Flex from "@/shared/components/Flex";
 import Container from "@/shared/components/Container";
 import { Margin } from "@/shared/components/Margin";
+import { getHumanYYYYMM } from "@/shared/utils/getHumanDateTimes";
+import Link from "next/link";
 
 const regex = /^(19|20)\d{2}(0[1-9]|1[0-2])$/;
+
+const buttonStyle = {
+  color: "#fff",
+  fontSize: 18,
+  border: "none",
+  background: "none",
+  cursor: "pointer",
+} as const;
 
 type MonthRecordParams = {
   params: {
     yearMonth: string;
   };
 };
+
+function CurrentMonthTitle({ currentMonth }: { currentMonth: Date }) {
+  return (
+    <section style={{ textAlign: "center", fontSize: 30 }}>
+      <h1>
+        {currentMonth.toLocaleDateString([], {
+          year: "numeric",
+          month: "2-digit",
+        })}
+      </h1>
+    </section>
+  );
+}
+
+function PrevMonthButton({ currentMonth }: { currentMonth: Date }) {
+  // currentMonthを直接操作するのではなく、新しいDateオブジェクトを作成し操作する
+  const current = new Date(currentMonth);
+  const prevMonth = new Date(current.setMonth(current.getMonth() - 1));
+  const param = getHumanYYYYMM(prevMonth).replace("/", "");
+
+  return (
+    <Link href={`/lists/${param}`}>
+      <button style={buttonStyle}>
+        <Flex gap={5}>
+          <FaAngleLeft size={20} />
+          Prev
+        </Flex>
+      </button>
+    </Link>
+  );
+}
+
+function NextMonthButton({ currentMonth }: { currentMonth: Date }) {
+  // currentMonthを直接操作するのではなく、新しいDateオブジェクトを作成し操作する
+  const current = new Date(currentMonth);
+  const nextMonth = new Date(current.setMonth(current.getMonth() + 1));
+  const param = getHumanYYYYMM(nextMonth).replace("/", "");
+
+  return (
+    <Link href={`/lists/${param}`}>
+      <button style={buttonStyle}>
+        <Flex gap={5}>
+          Next
+          <FaAngleRight size={20} />
+        </Flex>
+      </button>
+    </Link>
+  );
+}
 
 function MonthRecord({ params }: MonthRecordParams) {
   const { yearMonth } = params;
@@ -55,14 +119,11 @@ function MonthRecord({ params }: MonthRecordParams) {
     <Margin margin={50}>
       <Container>
         <Margin marginBottom={25}>
-          <section style={{ textAlign: "center", fontSize: 30 }}>
-            <h1>
-              {currentMonth.toLocaleDateString([], {
-                year: "numeric",
-                month: "2-digit",
-              })}
-            </h1>
-          </section>
+          <Flex align="baseline" gap={40}>
+            <PrevMonthButton currentMonth={currentMonth} />
+            <CurrentMonthTitle currentMonth={currentMonth} />
+            <NextMonthButton currentMonth={currentMonth} />
+          </Flex>
         </Margin>
         <table style={{ borderSpacing: "30px 10px" }}>
           <thead>
