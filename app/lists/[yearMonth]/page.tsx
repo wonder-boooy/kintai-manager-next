@@ -23,7 +23,9 @@ type MonthRecordParams = {
 
 function MonthRecord({ params }: MonthRecordParams) {
   const { yearMonth } = params;
-  const currentMonth = new Date(yearMonth.replace(/^(\d{4})(\d{2})$/, "$1/$2"));
+  const currentMonth = new Date(
+    [yearMonth.replace(/^(\d{4})(\d{2})$/, "$1/$2"), 1].join("/")
+  );
   const start = getFirstDayOfMonth(currentMonth);
   const end = getLastDayOfMonth(currentMonth);
 
