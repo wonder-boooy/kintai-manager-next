@@ -42,9 +42,10 @@ function MonthRecord({ params }: MonthRecordParams) {
   const works = useLiveQuery(worksQuery);
   const breakRecordList = useLiveQuery(breaksQuery);
 
-  if (!regex.test(yearMonth)) return <div>Invalid date</div>;
+  if (!regex.test(yearMonth)) return <div>Invalid date!</div>;
   if (!isValidDate(currentMonth)) return <div>Invalid date</div>;
   if (works === undefined) return <div>Loading...</div>;
+  if (breakRecordList === undefined) return <div>Loading...</div>;
 
   const monthRange = getMonthRange(currentMonth);
 
@@ -73,25 +74,24 @@ function MonthRecord({ params }: MonthRecordParams) {
                 cur.startedAt.getTime(),
               0
             );
-            const { hour: workHour, minute: workMinute } =
-              getTimes(workMilliSeconds);
-            const breaksOfMonth = breakRecordList?.filter(
+            const breaksOfMonth = breakRecordList.filter(
               (brk) => brk.startedAt.getDate() === date.getDate()
             );
-            const breakMilliSeconds =
-              breaksOfMonth?.reduce(
-                (acc, cur) =>
-                  acc +
-                  (cur.finishedAt?.getTime() || new Date().getTime()) -
-                  cur.startedAt.getTime(),
-                0
-              ) || 0;
-            const { hour: breakHour, minute: breakMinute } = getTimes(
-              breakMilliSeconds || 0
+            const breakMilliSeconds = breaksOfMonth.reduce(
+              (acc, cur) =>
+                acc +
+                (cur.finishedAt?.getTime() || new Date().getTime()) -
+                cur.startedAt.getTime(),
+              0
             );
-            const { hour: realHour, minute: realMinute } = getTimes(
-              workMilliSeconds - (breakMilliSeconds || 0)
-            );
+            const realWorkMilliSeconds = workMilliSeconds - breakMilliSeconds;
+
+            const { hour: workHour, minute: workMinute } =
+              getTimes(workMilliSeconds);
+            const { hour: breakHour, minute: breakMinute } =
+              getTimes(breakMilliSeconds);
+            const { hour: realHour, minute: realMinute } =
+              getTimes(realWorkMilliSeconds);
 
             return (
               <tr key={date.getTime()}>
