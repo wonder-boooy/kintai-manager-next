@@ -38,6 +38,33 @@ type MonthRecordParams = {
   };
 };
 
+// TODO: 祝日を扱えるJSライブラリを使って実装し直す
+function Weekday({ date }: { date: Date }) {
+  const weekday = date.toLocaleDateString([], { weekday: "short" });
+  if (weekday === "土") {
+    return (
+      <span style={{ color: "blue" }}>
+        {date.toLocaleDateString([], { day: "numeric" })}
+        {`（${weekday}）`}
+      </span>
+    );
+  }
+  if (weekday === "日") {
+    return (
+      <span style={{ color: "red" }}>
+        {date.toLocaleDateString([], { day: "numeric" })}
+        {`（${weekday}）`}
+      </span>
+    );
+  }
+  return (
+    <span>
+      {date.toLocaleDateString([], { day: "numeric" })}
+      {`（${weekday}）`}
+    </span>
+  );
+}
+
 function CurrentMonthTitle({ currentMonth }: { currentMonth: Date }) {
   return (
     <section style={{ textAlign: "center", fontSize: 30 }}>
@@ -170,8 +197,7 @@ function MonthRecord({ params }: MonthRecordParams) {
               return (
                 <tr key={date.getTime()}>
                   <td style={{ textAlign: "center" }}>
-                    {date.toLocaleDateString([], { day: "numeric" })}
-                    {`（${date.toLocaleDateString([], { weekday: "short" })}）`}
+                    <Weekday date={date} />
                   </td>
                   <td style={{ textAlign: "center" }}>
                     {workMilliSeconds === 0 ? (
