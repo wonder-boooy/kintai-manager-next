@@ -6,21 +6,25 @@ import Flex from "./Flex";
 import { useWork } from "../hooks/useWork";
 import { useBreak } from "../hooks/useBreak";
 
-function WorkLap() {
+function WorkLap({ stillBreaking = false }: { stillBreaking?: boolean }) {
   return (
-    <Flex>
-      実働
-      <WorkingTime />
-    </Flex>
+    <span style={{ color: stillBreaking ? "#a1a1a1" : undefined }}>
+      <Flex>
+        <span style={{ transition: "color 0.3s ease" }}>実働</span>
+        <WorkingTime />
+      </Flex>
+    </span>
   );
 }
 
-function BreakLap() {
+function BreakLap({ stillBreaking = true }: { stillBreaking?: boolean }) {
   return (
-    <Flex>
-      休憩
-      <BreakingTime />
-    </Flex>
+    <span style={{ color: stillBreaking ? undefined : "#a1a1a1" }}>
+      <Flex>
+        <span style={{ transition: "color 0.3s ease" }}>休憩</span>
+        <BreakingTime />
+      </Flex>
+    </span>
   );
 }
 
@@ -33,8 +37,8 @@ export function LapTimes() {
   return (
     <Absolute top={25} left={25}>
       <Container>
-        {stillWorking && <WorkLap />}
-        {breakRecord && <BreakLap />}
+        {stillWorking && <WorkLap stillBreaking={stillBreaking} />}
+        {breakRecord && <BreakLap stillBreaking={stillBreaking} />}
       </Container>
     </Absolute>
   );

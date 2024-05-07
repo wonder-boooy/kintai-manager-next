@@ -5,7 +5,6 @@ import { getTimes } from "../utils/getTimes";
 
 const style: React.CSSProperties = {
   margin: "0 auto",
-  color: "#fff",
   fontSize: 24,
   fontWeight: "bold",
   transition: "color 0.3s ease",
