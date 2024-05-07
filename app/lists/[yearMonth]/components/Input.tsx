@@ -4,6 +4,8 @@ type InputProps = {
   textAlign?: "left" | "center" | "right";
   value?: string;
   defaultValue?: string;
+  disabled?: boolean;
+  readonly?: boolean;
 };
 
 export function Input({
@@ -12,6 +14,8 @@ export function Input({
   textAlign = "center",
   value,
   defaultValue,
+  disabled = false,
+  readonly = false,
 }: InputProps) {
   return (
     <input
@@ -19,6 +23,8 @@ export function Input({
       style={{ width, textAlign }}
       value={value}
       defaultValue={defaultValue}
+      disabled={disabled}
+      readOnly={readonly}
     />
   );
 }

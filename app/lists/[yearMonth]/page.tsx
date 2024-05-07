@@ -215,15 +215,15 @@ function MonthRecord({ params }: MonthRecordParams) {
                   </td>
                   <td style={{ textAlign: "center" }}>
                     {workMilliSeconds === 0 ? (
-                      <Input />
+                      <Input readonly />
                     ) : (
-                      <Input defaultValue={`${realHour}:${realMinute}`} />
+                      <Input value={`${realHour}:${realMinute}`} readonly />
                     )}
                   </td>
-                  <td>
+                  <td style={{ textAlign: "center" }}>
                     <textarea rows={1} />
                   </td>
-                  <td>
+                  <td style={{ textAlign: "center" }}>
                     <Flex gap={10}>
                       <FaArrowRotateRight size={20} />
                       <FaSave size={20} />
@@ -233,7 +233,6 @@ function MonthRecord({ params }: MonthRecordParams) {
                 </tr>
               );
             })}
-            <tr></tr>
           </tbody>
         </table>
       </Container>
