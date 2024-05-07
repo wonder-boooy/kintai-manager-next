@@ -14,15 +14,31 @@ export interface Breaks {
   workId: number;
 }
 
+export interface Attendances {
+  id?: number;
+  month: Date,
+  list: [
+    {
+      date: Date;
+      workingTime?: number;
+      breakingTime?: number;
+      realWorkingTime?: number;
+      memo?: string;
+    }
+  ];
+}
+
 export class MySubClassedDexie extends Dexie {
   works!: Table<Works>;
   breaks!: Table<Breaks>;
+  attendances!: Table<Attendances>;
 
   constructor() {
-    super('kintaiManagerDatabase');
+    super("kintaiManagerDatabase");
     this.version(1).stores({
-      works: '++id, startedAt, finishedAt, memo',
-      breaks: '++id, startedAt, finishedAt, workId',
+      works: "++id, startedAt, finishedAt, memo",
+      breaks: "++id, startedAt, finishedAt, workId",
+      attendances: "++id, month, list"
     });
   }
 }
