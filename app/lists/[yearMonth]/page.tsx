@@ -129,7 +129,7 @@ function MonthRecord({ params }: MonthRecordParams) {
       : db.works.where({ id: 0 }).toArray();
   const breaksQuery = () =>
     isValid
-      ? db.breaks.where("startedAt").between(start, end, true, true).toArray()
+      ? db.breaks.toArray()
       : db.breaks.where({ id: 0 }).toArray();
 
   const works = useLiveQuery(worksQuery);
@@ -176,7 +176,7 @@ function MonthRecord({ params }: MonthRecordParams) {
                 0
               );
               const breaksOfMonth = breakRecordList.filter(
-                (brk) => brk.startedAt.getDate() === date.getDate()
+                (brk) => worksOfMonth.some((work) => work.id === brk.workId)
               );
               const breakMilliSeconds = breaksOfMonth.reduce(
                 (acc, cur) =>
