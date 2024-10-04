@@ -47,12 +47,13 @@ function Home() {
 
     classList?.add("working");
 
-    checkPoints.map((point, index) => {
-      const levelClass = `overwork-lv${index + 1}`;
-      workingSeconds > point
-        ? classList?.add(levelClass)
-        : classList?.remove(levelClass);
-    });
+    // NOTE: 労働時間によって背景色が変化するのは一旦なし
+    // checkPoints.map((point, index) => {
+    //   const levelClass = `overwork-lv${index + 1}`;
+    //   workingSeconds > point
+    //     ? classList?.add(levelClass)
+    //     : classList?.remove(levelClass);
+    // });
   }, [stillWorking, workingSeconds]);
 
   return (
