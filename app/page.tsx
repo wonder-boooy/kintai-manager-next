@@ -67,9 +67,6 @@ function Home() {
         </Buttons>
       </Container>
       <LapTimes />
-      <Absolute bottom={50}>
-        <ListLink />
-      </Absolute>
     </>
   );
 }
