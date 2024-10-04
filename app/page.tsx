@@ -8,9 +8,9 @@ import { FinishButton } from "@/components/FinishButton";
 import Buttons from "@/components/Buttons";
 import { useEffect, useState } from "react";
 import { Absolute } from "@/shared/components/Absolute";
-import { ListLink } from "@/shared/components/ListLink";
 import { LapTimes } from "@/shared/components/LapTimes";
 import { useWork } from "@/shared/hooks/useWork";
+import { MenuButton } from "@/components/MenuButton";
 
 // TODO: 背景色が変わるポイントを定義。秒になっているが分に変更する。
 const checkPoints = [2, 4, 6, 8, 10];
@@ -67,6 +67,9 @@ function Home() {
         </Buttons>
       </Container>
       <LapTimes />
+      <Absolute bottom={50} right={50}>
+        <MenuButton />
+      </Absolute>
     </>
   );
 }
