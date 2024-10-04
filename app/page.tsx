@@ -1,11 +1,11 @@
 "use client";
 
 import Container from "@/shared/components/Container";
-import { CurrentTime } from "./components/CurrentTime";
-import { StartButton } from "./components/StartButton";
-import { BreakButton } from "./components/BreakButton";
-import { FinishButton } from "./components/FinishButton";
-import Buttons from "./components/Buttons";
+import { CurrentTime } from "@/components/CurrentTime";
+import { StartButton } from "@/components/StartButton";
+import { BreakButton } from "@/components/BreakButton";
+import { FinishButton } from "@/components/FinishButton";
+import Buttons from "@/components/Buttons";
 import { useEffect, useState } from "react";
 import { Absolute } from "@/shared/components/Absolute";
 import { ListLink } from "@/shared/components/ListLink";
