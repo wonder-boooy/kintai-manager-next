@@ -1,0 +1,17 @@
+{
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "PWA of Kintai Manager",
+  "short_name": "pwa",
+  "description": "Management your working time",
+  "icons": [
+    {
+      "src": "./favicon.ico",
+      "sizes": "512x512",
+      "type": "image/ico"
+    }
+  ]
+}
